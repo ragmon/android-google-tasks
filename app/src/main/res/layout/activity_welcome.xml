@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#0099cc"
+             tools:context=".WelcomeActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <TextView android:id="@+id/fullscreen_content"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:keepScreenOn="true"
+              android:textColor="#33b5e5"
+              android:textStyle="bold"
+              android:textSize="50sp"
+              android:gravity="center"
+              android:text="@string/welcome_message"
+              android:layout_marginTop="268dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="8dp"
+              app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+              android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+              android:layout_marginLeft="8dp" app:layout_constraintHorizontal_bias="0.497"/>
+    <TextView android:id="@+id/fullscreen_content_info"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:keepScreenOn="true"
+              android:textColor="#33b5e5"
+              android:textStyle="bold"
+              android:textSize="18sp"
+              android:gravity="center"
+              android:text="@string/welcome_message_info"
+              app:layout_constraintStart_toStartOf="@+id/fullscreen_content"
+              app:layout_constraintEnd_toEndOf="@+id/fullscreen_content"
+              app:layout_constraintHorizontal_bias="0.488" android:layout_marginTop="12dp"
+              app:layout_constraintTop_toBottomOf="@+id/fullscreen_content"
+              android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+
+    <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/fullscreen_content_info"
+            app:layout_constraintStart_toStartOf="@+id/fullscreen_content_info"
+            app:layout_constraintEnd_toEndOf="@+id/fullscreen_content_info" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.972"
+            app:layout_constraintHorizontal_bias="0.528"/>
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <!--<FrameLayout android:layout_width="match_parent"-->
+                 <!--android:layout_height="match_parent"-->
+                 <!--android:fitsSystemWindows="true">-->
+
+        <!--<LinearLayout android:id="@+id/fullscreen_content_controls"-->
+                      <!--style="?metaButtonBarStyle"-->
+                      <!--android:layout_width="match_parent"-->
+                      <!--android:layout_height="wrap_content"-->
+                      <!--android:layout_gravity="bottom|center_horizontal"-->
+                      <!--android:background="@color/black_overlay"-->
+                      <!--android:orientation="horizontal"-->
+                      <!--tools:ignore="UselessParent">-->
+
+            <!--&lt;!&ndash;<Button android:id="@+id/dummy_button"&ndash;&gt;-->
+                    <!--&lt;!&ndash;style="?metaButtonBarButtonStyle"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="@string/dummy_button"/>&ndash;&gt;-->
+            <!---->
+
+        <!--</LinearLayout>-->
+    <!--</FrameLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

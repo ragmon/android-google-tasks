@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import io.github.ragmon.googletasks.ui.chart.ChartList
 import io.github.ragmon.googletasks.ui.main.SectionsPagerAdapter
 
 class ChartActivity : AppCompatActivity() {
@@ -35,8 +36,8 @@ class ChartActivity : AppCompatActivity() {
 
         fun newIntent(context: Context, chartList: ChartList? = null): Intent {
             val intent = Intent(context, StatisticActivity::class.java)
-            if (chartList) {
-                intent.putExtra(INTENT_CHART_LISTS_ID, chartList.map(chart -> task.id))
+            if (chartList != null) {
+                intent.putExtra(INTENT_CHART_LISTS_ID, chartList.map { chart -> chart.id }.toTypedArray())
             }
             return intent
         }

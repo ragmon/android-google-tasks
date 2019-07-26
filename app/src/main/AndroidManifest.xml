@@ -9,6 +9,17 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity
+                android:name=".WelcomeActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/title_activity_welcome"
+                android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".StatisticActivity">
         </activity>
         <activity android:name=".TaskActivity">
@@ -24,14 +35,14 @@
         <activity
                 android:name=".ChartActivity"
                 android:label="@string/title_activity_chart"
-                android:parentActivityName=".TaskListActivity"
+                android:parentActivityName=".TaskListsActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="io.github.ragmon.googletasks.TaskListActivity"/>
+                    android:value="io.github.ragmon.googletasks.TaskListsActivity"/>
         </activity>
         <activity
-                android:name=".TaskListActivity"
+                android:name=".TaskListsActivity"
                 android:label="@string/title_activity_tas_list"
                 android:parentActivityName=".MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">

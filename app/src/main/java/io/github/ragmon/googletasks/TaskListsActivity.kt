@@ -5,10 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
+import io.github.ragmon.googletasks.ui.tasklist.TaskLists
 
 import kotlinx.android.synthetic.main.activity_tas_list.*
 
-class TaskListActivity : AppCompatActivity() {
+class TaskListsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,12 +24,12 @@ class TaskListActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val INTENT_TASK_LIST_ID = "task_list_id"
+        private const val INTENT_TASK_LISTS_ID = "task_lists_id"
 
-        fun newIntent(context: Context, taskList: TaskList?): Intent {
-            val intent = Intent(context, TaskListActivity::class.java)
-            if (taskList) {
-                intent.putExtra(INTENT_TASK_LIST_ID, taskList.map(list -> list.id))
+        fun newIntent(context: Context, taskList: TaskLists? = null): Intent {
+            val intent = Intent(context, TaskListsActivity::class.java)
+            if (taskList != null) {
+                intent.putExtra(INTENT_TASK_LISTS_ID, taskList.map {list -> list.id}.toTypedArray())
             }
             return intent
         }
