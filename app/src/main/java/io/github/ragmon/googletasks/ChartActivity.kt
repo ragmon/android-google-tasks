@@ -1,5 +1,7 @@
 package io.github.ragmon.googletasks
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -25,6 +27,18 @@ class ChartActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+    }
+
+    companion object {
+        private val INTENT_CHART_LISTS_ID = "chart_list_id"
+
+        fun newIntent(context: Context, chartList: ChartList? = null): Intent {
+            val intent = Intent(context, StatisticActivity::class.java)
+            if (chartList) {
+                intent.putExtra(INTENT_CHART_LISTS_ID, chartList.map(chart -> task.id))
+            }
+            return intent
         }
     }
 }

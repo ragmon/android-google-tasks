@@ -11,6 +11,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import io.github.ragmon.googletasks.tools.Share
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -68,24 +69,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_home -> {
                 // Handle the camera action
             }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_tools -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
+            R.id.nav_task -> navTaskList()
+            R.id.nav_chart -> navChart()
+            R.id.nav_statistic -> navStatistic()
+            R.id.nav_share -> navShare()
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun navTaskList() {
+        startActivity(TaskListActivity.newIntent(this))
+    }
+
+    private fun navChart() {
+        startActivity(ChartActivity.newIntent(this))
+    }
+
+    private fun navStatistic() {
+        startActivity(StatisticActivity.newIntent(this))
+    }
+
+    private fun navShare() {
+        //
     }
 }
