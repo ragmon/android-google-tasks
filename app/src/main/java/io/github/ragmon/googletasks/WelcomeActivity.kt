@@ -111,7 +111,6 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
-            Log.d(TAG, "updateUI account != null")
             mSignInButton.visibility = View.GONE
 
             Handler().postDelayed({
@@ -119,7 +118,6 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
             }, WELCOME_SUCCESS_DELAY)
 
         } else {
-            Log.d(TAG, "updateUI account == null")
             mSignInButton.visibility = View.VISIBLE
         }
     }

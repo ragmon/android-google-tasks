@@ -25,7 +25,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -68,9 +70,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        Log.v(TAG, "onCreate")
+    override fun onStart() {
+        super.onStart()
+
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         val account = GoogleSignIn.getLastSignedInAccount(this)
@@ -78,12 +80,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun updateUI(account: GoogleSignInAccount?) {
-        Log.d(TAG, "updateUI" + account.toString())
         if (account != null) {
-            Log.d(TAG, account.toString())
-            Picasso.with(this).load(account.photoUrl).into(user_avatar)
-            user_name.text = account.displayName
-            user_email.text = account.email
+            val navView: NavigationView = findViewById(R.id.nav_view)
+            val navHeaderView = navView.getHeaderView(0)
+
+            Picasso.with(this).load(account.photoUrl).into(navHeaderView.user_avatar)
+            navHeaderView.user_name.text = account.displayName
+            navHeaderView.user_email.text = account.email
         } else {
             Log.d(TAG, "account == null")
             navWelcome()
@@ -122,7 +125,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    fun signOut() {
+    private fun signOut() {
         mGoogleSignInClient.signOut()
             .addOnCompleteListener(this, object : OnCompleteListener<Void> {
                 override fun onComplete(@NonNull task: Task<Void>) {
