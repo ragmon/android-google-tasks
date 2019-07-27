@@ -3,6 +3,8 @@ package io.github.ragmon.googletasks
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.view.GravityCompat
@@ -13,9 +15,22 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.annotation.NonNull
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.nav_header_main.*
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +52,46 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .requestProfile()
+//            .requestScopes(
+//                Scope("https://www.googleapis.com/auth/tasks"),
+//                Scope("https://www.googleapis.com/auth/tasks.readonly")
+//            )
+            .build()
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        Log.v(TAG, "onCreate")
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+        updateUI(account)
+    }
+
+    private fun updateUI(account: GoogleSignInAccount?) {
+        Log.d(TAG, "updateUI" + account.toString())
+        if (account != null) {
+            Log.d(TAG, account.toString())
+            Picasso.with(this).load(account.photoUrl).into(user_avatar)
+            user_name.text = account.displayName
+            user_email.text = account.email
+        } else {
+            Log.d(TAG, "account == null")
+            navWelcome()
+        }
+    }
+
+    private fun navWelcome() {
+        startActivity(WelcomeActivity.newIntent(this))
     }
 
     override fun onBackPressed() {
@@ -59,16 +114,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_sign_out -> {
+                signOut()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun signOut() {
+        mGoogleSignInClient.signOut()
+            .addOnCompleteListener(this, object : OnCompleteListener<Void> {
+                override fun onComplete(@NonNull task: Task<Void>) {
+                    navWelcome()
+                }
+            })
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
+                // TODO: nothing?
             }
             R.id.nav_task -> navTaskLists()
             R.id.nav_chart -> navChart()
@@ -93,10 +160,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun navShare() {
-        //
+        // TODO: share statistic with tasks & charts (pdf)
     }
 
     companion object {
+        const val TAG = "MainActivity"
+
         fun newIntent(context: Context): Intent {
             return Intent(context, MainActivity::class.java)
         }

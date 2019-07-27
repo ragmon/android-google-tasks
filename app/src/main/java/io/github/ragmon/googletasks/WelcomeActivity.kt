@@ -1,5 +1,6 @@
 package io.github.ragmon.googletasks
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,7 +25,6 @@ import com.google.android.gms.common.SignInButton
 class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
-//    private lateinit var mSignInButton: GoogleSignInButton
     private lateinit var mSignInButton: SignInButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,18 +35,13 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
 
         // Set the dimensions of the sign-in button.
         mSignInButton = findViewById(R.id.sign_in_button)
-//        mSignInButton.setSize(SignInButton.SIZE_STANDARD)
+        mSignInButton.setSize(SignInButton.SIZE_STANDARD)
         mSignInButton.setOnClickListener(this)
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-//            .requestProfile()
-//            .requestScopes(
-//                Scope("https://www.googleapis.com/auth/tasks"),
-//                Scope("https://www.googleapis.com/auth/tasks.readonly")
-//            )
+//            .requestEmail()
             .build()
 
         // Build a GoogleSignInClient with the options specified by gso.
@@ -121,7 +116,7 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
 
             Handler().postDelayed({
                     startActivity(MainActivity.newIntent(this))
-            }, 1000)
+            }, WELCOME_SUCCESS_DELAY)
 
         } else {
             Log.d(TAG, "updateUI account == null")
@@ -142,6 +137,12 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
         /**
          * Google Account SignIn result code.
          */
-        private val RC_SIGN_IN = 1;
+        private const val RC_SIGN_IN = 1
+
+        private const val WELCOME_SUCCESS_DELAY: Long = 3000
+
+        fun newIntent(context: Context): Intent {
+            return Intent(context, WelcomeActivity::class.java)
+        }
     }
 }
