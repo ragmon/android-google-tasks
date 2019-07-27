@@ -36,4 +36,5 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="welcome_message">Welcome</string>
     <string name="welcome_message_info">Please log in to google account</string>
+    <string name="google_client_id">AIzaSyDlUwYj6vflevHaHINzb1jvU47qTdg5TUw</string>
 </resources>
