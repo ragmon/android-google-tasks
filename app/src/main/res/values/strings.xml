@@ -16,6 +16,8 @@
     <string name="title_activity_chart">ChartActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="large_text">Large text</string>
+    <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->

@@ -84,7 +84,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val navView: NavigationView = findViewById(R.id.nav_view)
             val navHeaderView = navView.getHeaderView(0)
 
-            Picasso.with(this).load(account.photoUrl).into(navHeaderView.user_avatar)
+            if (account.photoUrl != null)
+                Picasso.with(this).load(account.photoUrl).into(navHeaderView.user_avatar)
+            else
+                navHeaderView.user_avatar.setImageResource(R.mipmap.ic_no_avatar_round)
             navHeaderView.user_name.text = account.displayName
             navHeaderView.user_email.text = account.email
         } else {
@@ -151,15 +154,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun navTaskLists() {
-        startActivity(TaskListsActivity.newIntent(this))
+//        startActivity(TaskListsActivity.newIntent(this))
     }
 
     private fun navChart() {
-        startActivity(ChartActivity.newIntent(this))
+//        startActivity(ChartActivity.newIntent(this))
     }
 
     private fun navStatistic() {
-        startActivity(StatisticActivity.newIntent(this))
+//        startActivity(StatisticActivity.newIntent(this))
     }
 
     private fun navShare() {
