@@ -3,7 +3,6 @@ package io.github.ragmon.googletasks
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -15,8 +14,6 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.NonNull
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -25,8 +22,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
@@ -141,7 +136,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                // TODO: nothing?
+                // TODO: move to the Top of the task list
             }
             R.id.nav_task -> navTaskLists()
             R.id.nav_chart -> navChart()
@@ -154,7 +149,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun navTaskLists() {
-//        startActivity(TaskListsActivity.newIntent(this))
+        startActivity(TaskListActivity.newIntent(this))
     }
 
     private fun navChart() {
